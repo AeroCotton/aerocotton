@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Form</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            animation: slideIn 1s ease-out;
+        }
+
+        .form-container img {
+            width: 80px;
+            height: auto;
+            display: block;
+            margin: 0 auto 20px auto;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .form-container h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #0077ff;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 1.2s ease forwards;
+        }
+
+        .form-container label {
+            font-weight: bold;
+            display: block;
+            margin: 15px 0 5px;
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            text-align: left;
+        }
+
+        .form-container input,
+        .form-container textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .form-container input:focus,
+        .form-container textarea:focus {
+            border-color: #0077ff;
+            box-shadow: 0 4px 10px rgba(0, 119, 255, 0.2);
+            transform: scale(1.03);
+        }
+
+        .form-container textarea {
+            resize: none;
+        }
+
+        .form-container button {
+            background-color: #0077ff;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            margin-top: 20px;
+        }
+
+        .form-container button:hover {
+            background-color: #005fcc;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-container button:active {
+            background-color: #004799;
+            transform: scale(1);
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <!-- Logo Section -->
+        <img src="C:\Users\Admin\Desktop\AEROCOTTON\aerocotton_logo-removebg-preview.png" alt="Aero Cotton Logo">
+        <h1>Complete Your Order</h1>
+
+        <!-- Form Section -->
+        <form id="orderForm">
+            <!-- Customer Name -->
+            <label for="customerName">Customer Name</label>
+            <input type="text" id="customerName" name="customerName" placeholder="Enter your name" required>
+
+            <!-- Phone Number -->
+            <label for="phoneNumber">Phone Number</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number" pattern="[0-9]{10}" required>
+
+            <!-- Pincode -->
+            <label for="pincode">Pincode</label>
+            <input type="text" id="pincode" name="pincode" placeholder="Enter your pincode" pattern="[0-9]{6}" required>
+
+            <!-- Address -->
+            <label for="address">Address</label>
+            <textarea id="address" name="address" rows="3" placeholder="Enter your address" required></textarea>
+
+            <!-- Product ID (replacing Product Name) -->
+            <label for="productID">Product ID</label>
+            <input type="text" id="productID" name="productID" placeholder="Enter product ID" required>
+
+            <!-- Quantity -->
+            <label for="quantity">Quantity</label>
+            <input type="number" id="quantity" name="quantity" value="1" min="1" placeholder="Enter quantity" required>
+
+            <!-- Additional Message -->
+            <label for="message">Additional Message</label>
+            <textarea id="message" name="message" rows="4" placeholder="Type your message here" required></textarea>
+
+            <!-- Submit Button -->
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        // Handle form submission
+        const form = document.getElementById('orderForm');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            const customerName = document.getElementById('customerName').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const pincode = document.getElementById('pincode').value;
+            const address = document.getElementById('address').value;
+            const productID = document.getElementById('productID').value; // updated field
+            const quantity = document.getElementById('quantity').value;
+            const message = document.getElementById('message').value;
+
+            // Create the mailto URL
+            const email = "ashwin10.krish@gmail.com";
+            const subject = encodeURIComponent("Order Details");
+            const body = encodeURIComponent(
+                `Customer Name: ${customerName}\n` +
+                `Phone Number: ${phoneNumber}\n` +
+                `Pincode: ${pincode}\n` +
+                `Address: ${address}\n` +
+                `Product ID: ${productID}\n` +  <!-- updated field -->
+                `Quantity: ${quantity}\n` +
+                `Message: ${message}`
+            );
+
+            // Redirect to the mailto link
+            window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+        });
+    </script>
+</body>
+</html>
